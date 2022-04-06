@@ -18,15 +18,15 @@ jobs:
       - name: Create artifact
         uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -X -r ${{ github.event.release.repository }}-${{ github.event.release.tag_name }}.zip ./release
+          args: zip -X -r ${{ github.event.release.repository.name }}-${{ github.event.release.tag_name }}.zip ./release
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.event.release.repository }}-${{ github.event.release.tag_name }}
-          path: ${{ github.event.release.repository }}-${{ github.event.release.tag_name }}.zip
+          name: ${{ github.event.release.repository.name }}-${{ github.event.release.tag_name }}
+          path: ${{ github.event.release.repository.name }}-${{ github.event.release.tag_name }}.zip
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          args: ${{ github.event.release.repository }}-${{ github.event.release.tag_name }}.zip application/zip
+          args: ${{ github.event.release.repository.name }}-${{ github.event.release.tag_name }}.zip application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
